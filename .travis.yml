@@ -8,8 +8,13 @@ addons:
       - g++-4.8
 env:
   global:
+    - PIP_DISABLE_PIP_VERSION_CHECK=on
+    - SENTRY_LIGHT_BUILD=1
+    - SENTRY_SKIP_BACKEND_VALIDATION=1
+    - TRAVIS_NODE_VERSION=4
     - CXX=g++-4.8
-    - NODE_ENV=production
+    - TEST_SUITE=dist
+    - COLUMNS=1000
 matrix:
   include:
   - env: stack=precise-container-filter
