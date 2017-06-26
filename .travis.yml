@@ -5,20 +5,9 @@ matrix:
   - env: stack=precise-container-filter
     sudo: false
     dist: precise
-  - env: stack=precise-container-nofilter
-    sudo: false
-    dist: precise
-    filter_secrets: false
   - env: stack=precise-sudo-filter
     dist: precise
     sudo: required
-rvm:
-  - 2.2
-cache:
-  yarn: true
-  directories:
-    - node_modules
-    - $HOME/.cache/pip/wheels
 branches:
   only:
   - master
