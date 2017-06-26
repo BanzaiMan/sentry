@@ -2,16 +2,16 @@ language: python
 python: 2.7
 matrix:
   include:
-  - env: stack=precise-container-filter
+  - env: stack=trusty-container-filter
     sudo: false
-    dist: precise
-  - env: stack=precise-container-nofilter
+    dist: trusty
+  - env: stack=trusty-container-nofilter
     sudo: false
-    dist: precise
+    dist: trusty
     filter_secrets: false
-  - env: stack=precise-sudo-filter
+  - env: stack=trusty-sudo-filter
     dist: precise
-    sudo: required
+    sudo: trusty
 rvm:
   - 2.2
 cache:
@@ -40,17 +40,6 @@ env:
     - COLUMNS=1000
 install:
   - nvm install 4
-  - make travis-install-$TEST_SUITE
-before_script:
-  - pip freeze
-  - ps -ejf --forest
-  - ps xao pid,ppid,pgid,sid,tty,comm --forest
-script:
-  - make travis-lint-$TEST_SUITE
-  - make travis-test-$TEST_SUITE
-after_success:
-  - codecov -e TEST_SUITE
-  - ps -ejf --forest
-  - ps xao pid,ppid,pgid,sid,tty,comm --forest
+script: true
 after_failure:
   - dmesg | tail -n 100
