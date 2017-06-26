@@ -1,5 +1,17 @@
-sudo: false
 language: python
+python: 2.7
+matrix:
+  include:
+  - env: stack=precise-container-filter
+    sudo: false
+    dist: precise
+  - env: stack=precise-container-nofilter
+    sudo: false
+    dist: precise
+    filter_secrets: false
+  - env: stack=precise-sudo-filter
+    dist: precise
+    sudo: required
 rvm:
   - 2.2
 cache:
@@ -24,68 +36,23 @@ env:
     - SENTRY_SKIP_BACKEND_VALIDATION=1
     - TRAVIS_NODE_VERSION=4
     - CXX=g++-4.8
+    - TEST_SUITE=dist
+    - COLUMNS=1000
 install:
   - nvm install $TRAVIS_NODE_VERSION
   - make travis-install-$TEST_SUITE
 before_script:
   - pip freeze
+  - ps -ejf --forest
+  - ps xao pid,ppid,pgid,sid,tty,comm --forest
 script:
   - make travis-lint-$TEST_SUITE
   - make travis-test-$TEST_SUITE
 after_success:
   - codecov -e TEST_SUITE
+  - ps -ejf --forest
+  - ps xao pid,ppid,pgid,sid,tty,comm --forest
 after_failure:
   - dmesg | tail -n 100
-# each attribute in the matrix will override the global attribute
-matrix:
-  fast_finish: true
-  allow_failures:
-    - python: 2.7
-      env: TEST_SUITE=django-18
-  include:
-    - language: ruby
-      rvm: 2.2
-      env: TEST_SUITE=danger
-    # only the sqlite suite runs cassandra/riak tests
-    - python: 2.7
-      env: TEST_SUITE=sqlite DB=sqlite
-      services:
-        - memcached
-        - riak
-        - redis-server
-        - cassandra
-      before_script:
-        - make travis-setup-cassandra
-        - pip freeze
-    - python: 2.7
-      env: TEST_SUITE=postgres DB=postgres
-      services:
-        - memcached
-        - redis-server
-        - postgresql
-    - python: 2.7
-      env: TEST_SUITE=mysql DB=mysql
-      services:
-        - memcached
-        - mysql
-        - redis-server
-    - python: 2.7
-      env: TEST_SUITE=acceptance
-      services:
-        - memcached
-        - redis-server
-        - postgresql
-    - python: 2.7
-      env: TEST_SUITE=js
-    - python: 2.7
-      env: TEST_SUITE=cli
-      services:
-        - postgresql
-    - python: 2.7
-      env: TEST_SUITE=dist
-    - python: 2.7
-      env: TEST_SUITE=django-18
-      services:
-        - memcached
-        - redis-server
-        - postgresql
+
+
