@@ -2,16 +2,16 @@ language: python
 python: 2.7
 matrix:
   include:
-  - env: stack=trusty-container-filter
+  - env: stack=precise-container-filter
     sudo: false
-    dist: trusty
-  - env: stack=trusty-container-nofilter
-    sudo: false
-    dist: trusty
-    filter_secrets: false
-  - env: stack=trusty-sudo-filter
     dist: precise
-    sudo: trusty
+  - env: stack=precise-container-nofilter
+    sudo: false
+    dist: precise
+    filter_secrets: false
+  - env: stack=precise-sudo-filter
+    dist: precise
+    sudo: required
 rvm:
   - 2.2
 cache:
@@ -28,16 +28,6 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
-env:
-  global:
-    - NODE_ENV=production
-    - PIP_DISABLE_PIP_VERSION_CHECK=on
-    - SENTRY_LIGHT_BUILD=1
-    - SENTRY_SKIP_BACKEND_VALIDATION=1
-    - TRAVIS_NODE_VERSION=4
-    - CXX=g++-4.8
-    - TEST_SUITE=dist
-    - COLUMNS=1000
 install:
   - nvm install 4
 script: true
