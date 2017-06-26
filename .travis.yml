@@ -13,7 +13,6 @@ env:
     - SENTRY_SKIP_BACKEND_VALIDATION=1
     - TRAVIS_NODE_VERSION=4
     - CXX=g++-4.8
-    - TEST_SUITE=dist
     - COLUMNS=1000
 matrix:
   include:
