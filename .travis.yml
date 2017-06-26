@@ -54,5 +54,3 @@ after_success:
   - ps xao pid,ppid,pgid,sid,tty,comm --forest
 after_failure:
   - dmesg | tail -n 100
-
-
