@@ -8,15 +8,6 @@ matrix:
   - env: stack=precise-sudo-filter
     dist: precise
     sudo: required
-branches:
-  only:
-  - master
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
 install:
   - nvm install 4
 script: true
