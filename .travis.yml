@@ -9,6 +9,7 @@ addons:
 env:
   global:
     - CXX=g++-4.8
+    - NODE_ENV=production
 matrix:
   include:
   - env: stack=precise-container-filter
