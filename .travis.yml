@@ -9,7 +9,6 @@ addons:
 env:
   global:
     - PIP_DISABLE_PIP_VERSION_CHECK=on
-    - SENTRY_LIGHT_BUILD=1
     - CXX=g++-4.8
     - COLUMNS=1000
 matrix:
