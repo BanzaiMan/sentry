@@ -39,7 +39,7 @@ env:
     - TEST_SUITE=dist
     - COLUMNS=1000
 install:
-  - nvm install $TRAVIS_NODE_VERSION
+  - nvm install 4
   - make travis-install-$TEST_SUITE
 before_script:
   - pip freeze
